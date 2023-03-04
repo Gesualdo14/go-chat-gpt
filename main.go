@@ -32,11 +32,16 @@ func main() {
 	fmt.Println("Iniciando aplicación...")
 	var err error
 
-	envErr := godotenv.Load()
-	if envErr != nil {
-		log.Fatalf("Error loading .env file: %v", envErr)
+	if os.Getenv("APP_ENV") == "local" {
+		// Cargar el archivo .env
+		envErr := godotenv.Load()
+		if envErr != nil {
+			log.Fatalf("Error loading .env file: %v", envErr)
+		}
+
 	}
 
+	
 	connStr := os.Getenv("MONGO_CONNECTION_STRING")
 	// Creamos una conexión con MongoDB
 	client, err = mongo.NewClient(options.Client().ApplyURI(connStr))
