@@ -76,11 +76,11 @@ func main() {
 	router.HandleFunc("/tareas/{id}", updateTarea).Methods("PUT")
 	router.HandleFunc("/tareas/{id}", deleteTarea).Methods("DELETE")
 
-	port := fmt.Sprintf("%s %s", ":", os.Getenv("PORT"))  
+	port := os.Getenv("PORT")
 
 	fmt.Println("Iniciando servidor en el puerto", port)
 	// Iniciamos el servidor HTTP
-	log.Fatal(http.ListenAndServe(port, router))
+	log.Fatal(http.ListenAndServe(":" + port, router))
 }
 
 func getTareas(w http.ResponseWriter, r *http.Request) {
